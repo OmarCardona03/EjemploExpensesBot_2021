@@ -1,0 +1,3 @@
+# Determina el nivel de los mensajes que se van a mostrar (debug)
+telebot.logger.setLevel(logging.INFO)
+#########################################################
