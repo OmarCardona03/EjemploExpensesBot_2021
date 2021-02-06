@@ -27,22 +27,12 @@ def on_command_start(message):
 # AYUDA
 @bot.message_handler(commands=['help'])
 def on_command_help(message):
-    pass
+    bot.send_chat_action(message.chat.id, 'typing')
 
-    response = (
-        "Estos son los comandos y órdenes disponibles:\n"
-        "\n"
-        "*/start* - Inicia la interacción con el bot\n"
-        "*/help* - Muestra este mensaje de ayuda\n"
-        "*sumar {valor1} y {valor2}* - Calcula la suma de dos valores\n"
-        "*restar {valor1} y {valor2}* - Calcula la resta de dos valores\n"
-        "*multiplicar {valor1} y {valor2}* - Calcula la multiplicación de dos valores\n"
-        "*dividir {valor1} y {valor2}* - Calcula la división de dos valores\n"
-    )
     bot.send_message(
-    message.chat.id,
-    response,
-    parse_mode="Markdown") 
+        message.chat.id,
+        logic.get_about_this(config.VERSION), 
+        parse_mode="Markdown")
 
 #########################################################
 @bot.message_handler(commands=['about'])
@@ -51,7 +41,7 @@ def on_command_about(message):
 
     bot.send_message(
         message.chat.id,
-        logic.get_about_this(config.VERSION), 
+        logic.get_help_message(), 
         parse_mode="Markdown")
 
 #########################################################
