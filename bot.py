@@ -2,6 +2,7 @@
 from config import bot
 import config
 from time import sleep
+import re
 import logic
 import database.db as db
 #########################################################
@@ -46,7 +47,12 @@ def on_command_help(message):
 #########################################################
 @bot.message_handler(commands=['about'])
 def on_command_about(message):
-    pass
+    bot.send_chat_action(message.chat.id, 'typing')
+
+    bot.send_message(
+        message.chat.id,
+        logic.get_about_this(config.VERSION), 
+        parse_mode="Markdown")
 
 #########################################################
 @bot.message_handler(regexp=r"^(gane|gané|g) ([+-]?([0-9]*[.])?[0-9]+)$")
