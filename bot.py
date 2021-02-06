@@ -17,12 +17,20 @@ if __name__ == '__main__':
 @bot.message_handler(commands=['start'])
 def on_command_start(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    sleep(1)
+    
+    bot.send_message(
+        message.chat.id,
+        logic.get_welcome_message(bot.get_me()),
+        parse_mode="Markdown")
 
     bot.send_message(
-    message.chat.id,
-    "Hola, soy un \U0001F916, ¿cómo estás?",
-    parse_mode="Markdown") 
+        message.chat.id,
+        logic.get_help_message(),
+        parse_mode="Markdown")
+
+    logic.register_account(message.from_user.id)  
+    
+
 
 # AYUDA
 @bot.message_handler(commands=['help'])

@@ -9,9 +9,10 @@ class Account(db.Base):
     balance = Column('balance', Float, server_default='0', nullable=False)
     earnings = relationship('Earning', back_populates='accounts')
     spendings = relationship('Spending', back_populates='accounts')
+    
     def __init__(self, id, balance=0):
         self.id = id
         self.balance = balance
-        
+
     def __repr__(self):
         return f"<Account {self.id}>"

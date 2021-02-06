@@ -1,3 +1,9 @@
+import database.db as db
+from models.Account import Account
+from models.Earning import Earning
+from models.Spending import Spending
+from datetime import datetime
+from sqlalchemy import extract
 ##############################################################
 
 def get_about_this(VERSION):
@@ -26,3 +32,29 @@ def get_help_message ():
         "*listar cuentas|lc* - Lista las cuentas registradas (sólo   admin)\n"
     )
     return response
+
+##############################################################
+def get_welcome_message(bot_data):
+    response = (
+        f"Hola, soy *{bot_data.first_name}* "
+        f"también conocido como *{bot_data.username}*.\n\n"
+        "¡Estoy aquí para ayudarte a registrar tus gastos!"
+    )
+    return response
+
+##############################################################
+def register_account(user_id):
+    account = db.session.query(Account).get(user_id)
+    db.session.commit()
+
+    if account == None:
+        account = Account(user_id, 0)
+        db.session.add(account)
+        db.session.commit()
+        return True
+
+    return False
+
+##############################################################
+
+       
